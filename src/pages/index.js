@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import Link from "next/link";
 
 export default function Home({ props }) {
   const { user, error, isLoading } = useUser();
@@ -23,13 +24,13 @@ export default function Home({ props }) {
                 Welcome {user.name}
               </h2>
 
-              <a href="/api/auth/logout">Logout</a>
+              <Link href="/api/auth/logout">Logout</Link>
             </div>
           ) : (
             <div>
               <h1 className="text-3xl font-bold underline">Homepage</h1>
               <h2 className="text-2xl font-bold underline">Welcome Guest</h2>
-              <a href="/api/auth/login">Login</a>
+              <Link href="/api/auth/login">Login</Link>
             </div>
           )}
         </div>

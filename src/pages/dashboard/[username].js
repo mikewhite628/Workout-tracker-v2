@@ -1,55 +1,89 @@
 import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
-import {
-  useUser,
-  withPageAuthRequired,
-  getSession,
-} from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import axios from "axios";
 import "react-calendar/dist/Calendar.css";
+import { DBContext } from "@/Components/Layout";
+import Workout from "../../Components/Workout";
+import PersonalRecords from "@/Components/PersonalRecords";
 
-export default withPageAuthRequired(function Dashboard() {
+export default function Dashboard({ userDB }) {
+  //grab  db user from context
+  const dbUser = React.useContext(DBContext);
+
   const [userWorkouts, setUserWorkouts] = useState([]);
   const [value, onChange] = useState(new Date());
   const [fetched, setFetched] = useState(false);
   const [updatingWorkout, setUpdatingWorkout] = useState(false);
   const [itemToUpdate, setItemToUpdate] = useState([]);
   const [selectedDaysWorkouts, setSelectedDaysWorkouts] = useState([{}]);
-
-  const { user, error, isLoading } = useUser();
-
-  //get user workouts
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-        `http://localhost:3001/api/workouts/${user.sub}`
-      );
-      setUserWorkouts(result.data);
-      setFetched(true);
-    };
-    fetchData();
-  }, [fetched, user.sub]);
-
-  //add new workout
+  const [selectedMonth, setSelectedMonth] = useState([{}]);
+  const [selectedDate, setSelectedDate] = useState();
   const [name, setName] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
-  const [selectedDate, setSelectedDate] = useState();
+  const [addingWorkout, setAddingWorkout] = useState(false);
+
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const { user, error, isLoading } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      fetchData();
+    }
+  }, [fetched]);
+
+  const fetchData = async () => {
+    const result = await axios(`/api/getuser`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sub: user.sub }),
+      method: "POST",
+    }).then((res) => {
+      console.log(res.data);
+      return res;
+    });
+    setUserWorkouts(result.data[0].workouts);
+    setFetched(true);
+  };
+
+  function clearData() {
+    setName("");
+    setReps("");
+    setWeight("");
+  }
 
   const addWorkout = async (e, date) => {
     e.preventDefault();
-    const workout = {
-      name: name,
-      reps: reps,
-      weight: weight,
-      user: user.sub,
-    };
 
     axios
-      .post("http://localhost:3001/api/add", workout)
+      .post("/api/addworkout", {
+        name: name,
+        reps: reps,
+        weight: weight,
+        user: userDB[0]._id,
+        date: selectedDate.toString(),
+      })
       .then((res) => {
         console.log(res.data);
         setFetched(false);
+        clearData();
       })
       .catch((err) => {
         console.log(err);
@@ -59,7 +93,7 @@ export default withPageAuthRequired(function Dashboard() {
   //delete workout
   const deleteWorkout = async (id) => {
     axios
-      .delete(`http://localhost:3001/api/delete/${id}`)
+      .delete(`/api/deleteworkout/${id}`)
       .then((res) => {
         console.log(res.data);
         setFetched(false);
@@ -71,58 +105,76 @@ export default withPageAuthRequired(function Dashboard() {
 
   //update workout
   const updateWorkout = async (id) => {
-    const workout = {
-      name: name,
-      reps: reps,
-      weight: weight,
-      user: user.sub,
-    };
-
     axios
-      .put(`http://localhost:3001/api/update/${id}`, workout)
+      .put(`/api/updateworkout/${id}`, {
+        name: name,
+        reps: reps,
+        weight: weight,
+        user: userInDB._id,
+      })
       .then((res) => {
         console.log(res.data);
         setFetched(false);
         toggleUpdatingWorkout();
+        clearData();
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  //toggle update workout form
   const toggleUpdatingWorkout = (id) => {
     setUpdatingWorkout(!updatingWorkout);
     setItemToUpdate(id);
     console.log(itemToUpdate);
   };
 
+  //select calendar date and view workouts on that date
   useEffect(() => {
     selectDate();
   }, [value, fetched]);
 
-  //select calendar date
+  //view workouts on that date
   const selectDate = (e) => {
     setSelectedDate(value);
     const trimmedDate = value.toString().slice(0, 10);
-
-    //view workouts on that date
     const selectedDateWorkouts = userWorkouts.filter(
       (workout) => workout.date.slice(0, 10) === trimmedDate
     );
     setSelectedDaysWorkouts(selectedDateWorkouts);
-
+    checkDayForWorkouts(selectedDateWorkouts);
     console.log(value);
     console.log(selectedDaysWorkouts);
   };
 
-  const addClassForWorkouts = (date) => {
-    const trimmedDate = date.toString().slice(0, 10);
-    const selectedDateWorkouts = userWorkouts.filter(
-      (workout) => workout.date.slice(0, 10) === trimmedDate
-    );
-
+  const checkDayForWorkouts = (selectedDateWorkouts) => {
     if (selectedDateWorkouts.length > 0) {
-      return "hasWorkouts bg-green-500";
+      setAddingWorkout(true);
+    } else {
+      setAddingWorkout(false);
+    }
+  };
+
+  //add class to calendar if that day / month has workouts
+  const addClassForWorkouts = (date) => {
+    if (userWorkouts) {
+      const trimmedDate = date.toString().slice(0, 10);
+      const selectedDateWorkouts = userWorkouts.filter(
+        (workout) => workout.date.slice(0, 10) === trimmedDate
+      );
+
+      const selectedMonthWorkouts = userWorkouts.filter(
+        (workout) => workout.date.slice(4, 7) === months[date.getMonth()]
+      );
+
+      if (selectedDateWorkouts.length > 0) {
+        return "workout dayView";
+      }
+
+      if (selectedMonthWorkouts.length > 0) {
+        return "hasWorkouts monthView";
+      }
     }
   };
 
@@ -131,95 +183,93 @@ export default withPageAuthRequired(function Dashboard() {
   if (error) return <div>{error.message}</div>;
 
   return (
-    <div>
+    <div className="relative">
       <h1>Dashboard</h1>
 
       <Calendar
         onChange={onChange}
-        showWeekNumbers
         value={value}
         onClickDay={() => selectDate()}
         //add class if selected date has workouts
         tileClassName={({ date }) => addClassForWorkouts(date)}
+        // tileContent={({ date }) => addClassForMonthView(date)}
       />
 
-      {selectedDaysWorkouts !== undefined ? (
-        selectedDaysWorkouts.map((workout) => (
-          <div
-            key={workout._id}
-            className="flex flex-col justify-center w-48 m-auto"
+      <div>
+        <div className={`flex justify-center`}>
+          <p
+            className={`${selectedDaysWorkouts.length === 0 ? null : "hide"}`}
+          >{`No workouts for this day just quite yet! Lets change that :)`}</p>
+          <p
+            className={`${selectedDaysWorkouts.length > 0 ? null : "hide"}`}
+          >{`Workouts for ${selectedDate}`}</p>
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => setAddingWorkout(true)}
           >
-            <h2>{workout.name}</h2>
-            <p>{workout.reps}</p>
-            <p>{workout.weight}</p>
-            <p>{workout.date}</p>
+            Add Workout
+          </button>
+        </div>
 
-            {updatingWorkout && workout._id === itemToUpdate ? (
-              <div key={workout._id}>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  onChange={(e) => setName(e.target.value)}
-                ></input>
-                <input
-                  type="text"
-                  placeholder="weight"
-                  onChange={(e) => setWeight(e.target.value)}
-                ></input>
-                <input
-                  type="text"
-                  placeholder="reps"
-                  onChange={(e) => setReps(e.target.value)}
-                ></input>
-                <button onClick={(e) => updateWorkout(workout._id)}>
-                  Edit
-                </button>
-                <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
-                  Cancel
-                </button>
-              </div>
-            ) : null}
+        <Workout
+          selectedDaysWorkouts={selectedDaysWorkouts}
+          updatingWorkout={updatingWorkout}
+          itemToUpdate={itemToUpdate}
+          toggleUpdatingWorkout={toggleUpdatingWorkout}
+          deleteWorkout={deleteWorkout}
+          updateWorkout={updateWorkout}
+          addWorkout={addWorkout}
+          setName={setName}
+          setReps={setReps}
+          setWeight={setWeight}
+          setAddingWorkout={setAddingWorkout}
+          addingWorkout={addingWorkout}
+        />
+      </div>
 
-            <button onClick={() => deleteWorkout(workout._id)}>Delete</button>
-            <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
-              Update
-            </button>
-          </div>
-        ))
-      ) : (
-        <h1>No workouts for this day</h1>
-      )}
-
-      <input
-        type="text"
-        placeholder="Name"
-        onChange={(e) => setName(e.target.value)}
-      ></input>
-      <input
-        type="text"
-        placeholder="weight"
-        onChange={(e) => setWeight(e.target.value)}
-      ></input>
-      <input
-        type="text"
-        placeholder="reps"
-        onChange={(e) => setReps(e.target.value)}
-      ></input>
-      <input type="button" value="Add Workout" onClick={addWorkout} />
-
-      {/* <div>
-        {selectedDaysWorkouts !== undefined
-          ? selectedDaysWorkouts.map((workout) => (
-              <div key={workout._id}>
-                <h3>{workout._id}</h3>
-                <h2>{workout.name}</h2>
-                <p>{workout.reps}</p>
-                <p>{workout.weight}</p>
-                <p>{workout.date}</p>
-              </div>
-            ))
-          : null}
-      </div> */}
+      <PersonalRecords userWorkouts={userWorkouts} />
     </div>
   );
+}
+
+export const getServerSideProps = withPageAuthRequired({
+  returnTo: "/",
+
+  async getServerSideProps(ctx) {
+    const { req, res } = ctx;
+    const session = await getSession(req, res);
+    const user = session.user;
+    const sub = user.sub;
+
+    const fetchDBUser = await fetch("http://localhost:3000/api/getuser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sub }),
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+
+    let db = await fetchDBUser;
+
+    // const fetchWorkouts = await fetch(
+    //   `http://localhost:3000/api/workouts/${db._id} `,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     params: { uid: db._id },
+    //   }
+    // ).then((res) => res.json());
+
+    // const workouts = await fetchWorkouts;
+
+    return {
+      props: {
+        userDB: db,
+      },
+    };
+  },
 });
