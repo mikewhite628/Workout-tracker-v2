@@ -4,26 +4,22 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import axios from "axios";
 import "react-calendar/dist/Calendar.css";
-import { DBContext } from "@/Components/Layout";
 import Workout from "../../Components/Workout";
 import PersonalRecords from "@/Components/PersonalRecords";
 
 export default function Dashboard({ userDB }) {
-  //grab  db user from context
-  const dbUser = React.useContext(DBContext);
-
   const [userWorkouts, setUserWorkouts] = useState([]);
   const [value, onChange] = useState(new Date());
   const [fetched, setFetched] = useState(false);
   const [updatingWorkout, setUpdatingWorkout] = useState(false);
   const [itemToUpdate, setItemToUpdate] = useState([]);
   const [selectedDaysWorkouts, setSelectedDaysWorkouts] = useState([{}]);
-  const [selectedMonth, setSelectedMonth] = useState([{}]);
   const [selectedDate, setSelectedDate] = useState();
   const [name, setName] = useState("");
   const [reps, setReps] = useState("");
   const [weight, setWeight] = useState("");
   const [addingWorkout, setAddingWorkout] = useState(false);
+  const [selectedDateString, setSelectedDateString] = useState("");
 
   const months = [
     "Jan",
@@ -43,24 +39,33 @@ export default function Dashboard({ userDB }) {
   const { user, error, isLoading } = useUser();
 
   useEffect(() => {
+    // setUserWorkouts(userSession);
     if (user) {
       fetchData();
     }
   }, [fetched]);
 
+  useEffect(() => {
+    let userSession = sessionStorage.getItem("workouts");
+    if (userSession === null) {
+      fetchData();
+      console.log("fetching data");
+    } else {
+      //if user session is not null, set user workouts to session data
+      console.log("setting data from session");
+      setUserWorkouts(JSON.parse(userSession));
+    }
+  }, [user]);
+
   const fetchData = async () => {
-    const result = await axios(`/api/getuser`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ sub: user.sub }),
-      method: "POST",
-    }).then((res) => {
-      console.log(res.data);
-      return res;
-    });
-    setUserWorkouts(result.data[0].workouts);
+    const result = await axios
+      .get(`/api/userinfo/${userDB[0]._id}`)
+      .then((res) => {
+        return res.data[0];
+      });
+    setUserWorkouts(result.workouts);
     setFetched(true);
+    sessionStorage.setItem("workouts", JSON.stringify(userWorkouts));
   };
 
   function clearData() {
@@ -110,7 +115,7 @@ export default function Dashboard({ userDB }) {
         name: name,
         reps: reps,
         weight: weight,
-        user: userInDB._id,
+        user: userDB[0]._id,
       })
       .then((res) => {
         console.log(res.data);
@@ -138,6 +143,7 @@ export default function Dashboard({ userDB }) {
   //view workouts on that date
   const selectDate = (e) => {
     setSelectedDate(value);
+    setSelectedDateString(value.toString().slice(0, 10));
     const trimmedDate = value.toString().slice(0, 10);
     const selectedDateWorkouts = userWorkouts.filter(
       (workout) => workout.date.slice(0, 10) === trimmedDate
@@ -149,11 +155,12 @@ export default function Dashboard({ userDB }) {
   };
 
   const checkDayForWorkouts = (selectedDateWorkouts) => {
-    if (selectedDateWorkouts.length > 0) {
-      setAddingWorkout(true);
-    } else {
-      setAddingWorkout(false);
-    }
+    // if (selectedDateWorkouts.length > 0) {
+    //   setAddingWorkout(true);
+    // } else {
+    //   setAddingWorkout(false);
+    // }
+    setAddingWorkout(true);
   };
 
   //add class to calendar if that day / month has workouts
@@ -192,7 +199,6 @@ export default function Dashboard({ userDB }) {
         onClickDay={() => selectDate()}
         //add class if selected date has workouts
         tileClassName={({ date }) => addClassForWorkouts(date)}
-        // tileContent={({ date }) => addClassForMonthView(date)}
       />
 
       <div>
@@ -202,7 +208,7 @@ export default function Dashboard({ userDB }) {
           >{`No workouts for this day just quite yet! Lets change that :)`}</p>
           <p
             className={`${selectedDaysWorkouts.length > 0 ? null : "hide"}`}
-          >{`Workouts for ${selectedDate}`}</p>
+          >{`Workouts for ${selectedDateString}`}</p>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             onClick={() => setAddingWorkout(true)}
@@ -224,6 +230,7 @@ export default function Dashboard({ userDB }) {
           setWeight={setWeight}
           setAddingWorkout={setAddingWorkout}
           addingWorkout={addingWorkout}
+          selectedDateString={selectedDateString}
         />
       </div>
 
@@ -252,19 +259,6 @@ export const getServerSideProps = withPageAuthRequired({
       .catch((err) => console.log(err));
 
     let db = await fetchDBUser;
-
-    // const fetchWorkouts = await fetch(
-    //   `http://localhost:3000/api/workouts/${db._id} `,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     params: { uid: db._id },
-    //   }
-    // ).then((res) => res.json());
-
-    // const workouts = await fetchWorkouts;
 
     return {
       props: {

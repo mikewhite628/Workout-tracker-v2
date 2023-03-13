@@ -21,7 +21,7 @@ main {
 
 .workoutmodal {
   height: 0;
-  width: 500px;
+  width: 525px;
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
@@ -30,11 +30,13 @@ main {
   transition: all 1s ease-in-out;
   z-index: 9999;
   overflow: hidden;
+  overflow-y: scroll;
 }
 
 .workoutmodal.active {
   height: 525px;
   opacity: 1;
+  overflow-y: scroll;
 }
 
 .hasWorkouts.monthView {

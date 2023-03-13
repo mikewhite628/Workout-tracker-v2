@@ -22,7 +22,20 @@ export default async function updateWorkout(req, res) {
         },
       }
     );
-    res.send("workout updated" + workout);
+
+    const userWorkouts = await db.collection("users").updateOne(
+      {
+        workouts: { $elemMatch: { _id: ObjectId(uid) } },
+      },
+      {
+        $set: {
+          "workouts.$.name": name,
+          "workouts.$.weight": weight,
+          "workouts.$.reps": reps,
+        },
+      }
+    );
+    res.send(userWorkouts);
     console.log(uid);
   } catch (e) {
     console.log(e);

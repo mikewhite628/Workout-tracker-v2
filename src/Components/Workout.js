@@ -1,5 +1,8 @@
 import React from "react";
 import CloseButton from "./CloseButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/pro-solid-svg-icons";
+import { faPenToSquare } from "@fortawesome/pro-solid-svg-icons";
 
 export default function workout({
   selectedDaysWorkouts,
@@ -14,26 +17,31 @@ export default function workout({
   setWeight,
   addingWorkout,
   setAddingWorkout,
+  selectedDateString,
 }) {
   console.log(selectedDaysWorkouts + "selectedDaysWorkouts");
 
   return (
     <div
-      className={`flex flex-col absolute bg-slate-300 z-10  inset-0 mx-auto top-0 workoutmodal ${
+      className={`flex flex-col absolute bg-slate-300 z-10  inset-0 mx-auto top-0 workoutmodal  text-center ${
         addingWorkout ? "active " : null
       }`}
     >
       <CloseButton itemToClose={addingWorkout} closeItem={setAddingWorkout} />
+      <h3>{selectedDateString}</h3>
+
+      <div className="grid grid-cols-4">
+        <div className="col-start-1 col-end-2">Excercise Name:</div>
+        <div className="col-start-2"> Weight:</div>
+        <div className="col-start-3">Reps:</div>
+        <div className="col-start-4">+ / -</div>
+      </div>
       {selectedDaysWorkouts !== undefined
         ? selectedDaysWorkouts.map((workout) => (
-            <div
-              key={workout._id}
-              className="flex flex-col justify-center w-48 m-auto"
-            >
-              <h2>{workout.name}</h2>
-              <p>{workout.reps}</p>
-              <p>{workout.weight}</p>
-              <p>{workout.date}</p>
+            <div key={workout._id} className="grid grid-cols-4">
+              <h2 className="">{workout.name}</h2>
+              <p className="">{workout.reps}</p>
+              <p className="">{workout.weight}</p>
 
               {updatingWorkout && workout._id === itemToUpdate ? (
                 <div key={workout._id}>
@@ -61,30 +69,46 @@ export default function workout({
                 </div>
               ) : null}
 
-              <button onClick={() => deleteWorkout(workout._id)}>Delete</button>
-              <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
-                Update
-              </button>
+              <div>
+                <button onClick={() => deleteWorkout(workout._id)}>
+                  <FontAwesomeIcon icon={faTrashCan} />
+                </button>
+                <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                </button>
+              </div>
             </div>
           ))
         : null}
 
-      <input
-        type="text"
-        placeholder="Name"
-        onChange={(e) => setName(e.target.value)}
-      ></input>
-      <input
-        type="text"
-        placeholder="weight"
-        onChange={(e) => setWeight(e.target.value)}
-      ></input>
-      <input
-        type="text"
-        placeholder="reps"
-        onChange={(e) => setReps(e.target.value)}
-      ></input>
-      <input type="button" value="Add Workout" onClick={addWorkout} />
+      <div className="grid-cols-4 grid">
+        <input
+          type="text"
+          placeholder="Name"
+          className="border border-black mx-1"
+          onChange={(e) => setName(e.target.value)}
+        ></input>
+        <input
+          type="text"
+          placeholder="weight"
+          className="border border-black mx-1"
+          onChange={(e) => setWeight(e.target.value)}
+        ></input>
+        <input
+          type="text"
+          placeholder="reps"
+          className="border border-black mx-1"
+          onChange={(e) => setReps(e.target.value)}
+        ></input>
+        <button
+          type="button"
+          value="Add Workout"
+          className={`border border-black mx-1`}
+          onClick={addWorkout}
+        >
+          {"Add workout"}
+        </button>
+      </div>
     </div>
   );
 }

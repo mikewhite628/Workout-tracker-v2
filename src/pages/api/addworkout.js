@@ -7,12 +7,16 @@ export default async function addworkout(req, res) {
     const { name, reps, weight, user, date } = req.body;
 
     const newWorkout = {
-      name: name,
-      reps: reps,
-      weight: weight,
+      name: name
+        .trim()
+        .toLowerCase(name.charAt(0).toUpperCase() + name.slice(1)),
+      reps: reps.trim(),
+      weight: weight.trim(),
       user: user,
       date: date,
     };
+
+    //sanitze data
 
     const client = await clientPromise;
     const db = client.db("test");
@@ -28,7 +32,7 @@ export default async function addworkout(req, res) {
     };
     updateUser();
 
-    const workout = await db.collection("workouts").save(newWorkout);
+    const workout = await db.collection("workouts").insertOne(newWorkout);
     res.send("new workout added" + workout);
   } catch (e) {
     console.error(e);
