@@ -35,7 +35,7 @@ export default async function updateWorkout(req, res) {
         },
       }
     );
-    res.send(userWorkouts);
+    res.send(userWorkouts + " " + workout);
     console.log(uid);
   } catch (e) {
     console.log(e);

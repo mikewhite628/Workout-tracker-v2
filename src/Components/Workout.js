@@ -40,8 +40,8 @@ export default function workout({
         ? selectedDaysWorkouts.map((workout) => (
             <div key={workout._id} className="grid grid-cols-4">
               <h2 className="">{workout.name}</h2>
-              <p className="">{workout.reps}</p>
               <p className="">{workout.weight}</p>
+              <p className="">{workout.reps}</p>
 
               {updatingWorkout && workout._id === itemToUpdate ? (
                 <div key={workout._id}>
@@ -71,10 +71,10 @@ export default function workout({
 
               <div>
                 <button onClick={() => deleteWorkout(workout._id)}>
-                  <FontAwesomeIcon icon={faTrashCan} />
+                  <FontAwesomeIcon icon={faTrashCan} width={12} />
                 </button>
                 <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
-                  <FontAwesomeIcon icon={faPenToSquare} />
+                  <FontAwesomeIcon icon={faPenToSquare} width={12} />
                 </button>
               </div>
             </div>

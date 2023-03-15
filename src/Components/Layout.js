@@ -4,6 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
+import Chat from "./Chat";
 
 export const DBContext = React.createContext();
 
@@ -44,6 +45,7 @@ export default function Layout({ children, pageProps }) {
       <div className="layout">
         <Nav />
         <div className="content">{children}</div>
+        <Chat />
         <Footer />
       </div>
     </DBContext.Provider>

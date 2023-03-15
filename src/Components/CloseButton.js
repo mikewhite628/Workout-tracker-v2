@@ -9,7 +9,7 @@ export default function CloseButton({ itemToClose, closeItem }) {
 
   return (
     <button onClick={(e) => handleClick(e)} aria-label="close-button">
-      <FontAwesomeIcon icon={faXmark} />
+      <FontAwesomeIcon icon={faXmark} width={18} />
     </button>
   );
 }

@@ -21,6 +21,9 @@ export default function Nav() {
           <li className="mr-5">
             <Link href="/Workout">Workouts</Link>
           </li>
+          <li className="mr-5">
+            <Link href="/Plan">Get A Workout Plan!</Link>
+          </li>
 
           <li className="mr-5">
             {user ? (
