@@ -13,14 +13,12 @@ export default function Footer() {
   return (
     <div className="flex flex-col mt-12 py-12 mx-4">
       <div className="mb-1 flex flex-row">
-        <span>{`Built with `}</span>
-        <FontAwesomeIcon icon={faHeart} width="16px" className="mx-2" />
-        <span className="mr-2">{` by `}</span>
+        <span>{`Built by `}</span>
         <Link
           href="https://michaelwhite.dev"
-          className="font-bold text-blue-700 underline"
+          className="font-bold text-blue-700 underline ml-1"
         >
-          Michael White
+          {` Michael White`}
         </Link>
       </div>
       <ul className="flex flex-row items-center">

@@ -261,12 +261,8 @@ export default function Dashboard({ userDB }) {
           name={name}
         />
       </div>
-      <div className="px-6 mb-6">
-        <div>
-          <p>{`Hello ${user.nickname}!`}</p>
-        </div>
-      </div>
-      <PersonalRecords userWorkouts={userWorkouts} />
+      <div className="px-6 mb-6"></div>
+      <PersonalRecords userWorkouts={userWorkouts} user={user} />
     </div>
   );
 }

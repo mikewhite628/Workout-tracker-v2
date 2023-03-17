@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-export default function PersonalRecords({ userWorkouts }) {
+export default function PersonalRecords({ userWorkouts, user }) {
   const [personalRecords, setPersonalRecords] = useState([]);
 
   const findPersonalRecords = () => {
@@ -24,7 +24,7 @@ export default function PersonalRecords({ userWorkouts }) {
 
   return (
     <div className="px-6">
-      <h2 className="mb-2">Personal Records </h2>
+      <h2 className="mb-2">{`Personal Records - ${user.nickname}`} </h2>
       <ul className="grid grid-cols-5">
         {Object.keys(personalRecords).map((key) => {
           return (

@@ -2,8 +2,9 @@ import Image from "next/image";
 import React from "react";
 import { useState, useEffect } from "react";
 import Typewriter from "../Components/Typewriter";
+import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 
-export default function Workout() {
+export default function Workout({ userDB }) {
   const [aiResponse, setAiResponse] = useState(["-.o"]);
   const [prompt, setPrompt] = useState("");
   const [aiImage, setAiImage] = useState();
@@ -70,6 +71,7 @@ export default function Workout() {
           </p>
         </div>
       </div>
+
       <div className="w-11/12 flex mx-auto m-2 p-2">
         <div className="AI-response w-full text-white p-8 text-lg">
           {/* {aiResponse.map((workout, i) => (
@@ -78,6 +80,7 @@ export default function Workout() {
           <Typewriter fullText={aiResponse.join(`\n`)} />
         </div>
       </div>
+
       <form
         onSubmit={handleSubmit}
         className="w-10/12 mx-auto m-2 p-1 flex flex-row items-center justify-between workoutAI-form w-10/12"
@@ -97,3 +100,32 @@ export default function Workout() {
     </div>
   );
 }
+
+export const getServerSideProps = withPageAuthRequired({
+  returnTo: "/",
+
+  async getServerSideProps(ctx) {
+    const { req, res } = ctx;
+    const session = await getSession(req, res);
+    const user = session.user;
+    const sub = user.sub;
+
+    const fetchDBUser = await fetch("http://localhost:3000/api/getuser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sub }),
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+
+    let db = await fetchDBUser;
+
+    return {
+      props: {
+        userDB: db,
+      },
+    };
+  },
+});
