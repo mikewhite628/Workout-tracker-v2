@@ -23,13 +23,20 @@ export default function PersonalRecords({ userWorkouts }) {
   }, [userWorkouts]);
 
   return (
-    <div>
-      <h3>Personal Records </h3>
-      <ul>
+    <div className="px-6">
+      <h2 className="mb-2">Personal Records </h2>
+      <ul className="grid grid-cols-5">
         {Object.keys(personalRecords).map((key) => {
           return (
-            <li key={key}>
-              {key} - {personalRecords[key].weight} lbs
+            <li key={key} className="flex flex-col">
+              <h4 className="uppercase">{key}</h4>
+              <span>
+                {personalRecords[key].weight} {"lbs"}
+              </span>
+              <span>
+                {personalRecords[key].reps} {"reps"}
+              </span>
+              <span>{personalRecords[key].date.toString().slice(0, 10)}</span>
             </li>
           );
         })}

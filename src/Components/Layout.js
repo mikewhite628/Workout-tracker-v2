@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
 import Chat from "./Chat";
+import Head from "next/head";
 
 export const DBContext = React.createContext();
 
@@ -42,7 +43,7 @@ export default function Layout({ children, pageProps }) {
 
   return (
     <DBContext.Provider value={dbUser}>
-      <div className="layout">
+      <div className="layout relative">
         <Nav />
         <div className="content">{children}</div>
         <Chat />

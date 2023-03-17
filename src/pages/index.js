@@ -3,6 +3,9 @@ import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
+import Banner from "@/Components/Banner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDumbbell } from "@fortawesome/pro-regular-svg-icons";
 
 export default function Home({ props }) {
   const { user, error, isLoading } = useUser();
@@ -16,8 +19,46 @@ export default function Home({ props }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="">
-        <div>
-          {user ? (
+        <Banner />
+        <div className="flex flex-col justify-center items-center ">
+          <div className="text-center mb-12 px-4">
+            <h1>Track Workouts Easily</h1>
+            <h3>
+              Get a workout plan curated just for you created by our AI Personal
+              trainer
+            </h3>
+            <h4>
+              {" "}
+              Chat With Vespur Our AI Trainer 24/7 For All Your Fitness
+              Questions and Concerns
+            </h4>
+            <h5>View and Track your Personal Fitness Records at A Glance</h5>
+          </div>
+          <div className="flex flex-row justify-around w-96 mb-12">
+            <FontAwesomeIcon icon={faDumbbell} width="75px" />
+            <FontAwesomeIcon icon={faDumbbell} width="100px" />
+            <FontAwesomeIcon icon={faDumbbell} width="75px" />
+          </div>
+          <div className="instructor-container">
+            <div>
+              <Image src="/aigreet.png" alt="mascot" width={250} height={250} />
+            </div>
+          </div>
+          <div className="mt-6">
+            <div>
+              <h4>{`Hi! I'm Vespur, Your AI Fitness trainer`}</h4>
+            </div>
+            <div className="text-center">
+              <h4>{`I'm here to help you get fit!`}</h4>
+            </div>
+            <div className="text-center">
+              <h4>{`I'm Just A Chat Away`}</h4>
+            </div>
+            <div className="text-center">
+              <h4>{`-.o`}</h4>
+            </div>
+          </div>
+          {/* {user ? (
             <div>
               <h1 className="text-3xl font-bold underline">Homepage</h1>
               <h2 className="text-2xl font-bold underline">
@@ -32,7 +73,7 @@ export default function Home({ props }) {
               <h2 className="text-2xl font-bold underline">Welcome Guest</h2>
               <Link href="/api/auth/login">Login</Link>
             </div>
-          )}
+          )} */}
         </div>
       </main>
     </>

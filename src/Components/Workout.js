@@ -18,6 +18,9 @@ export default function workout({
   addingWorkout,
   setAddingWorkout,
   selectedDateString,
+  name,
+  weight,
+  reps,
 }) {
   console.log(selectedDaysWorkouts + "selectedDaysWorkouts");
 
@@ -27,56 +30,84 @@ export default function workout({
         addingWorkout ? "active " : null
       }`}
     >
-      <CloseButton itemToClose={addingWorkout} closeItem={setAddingWorkout} />
-      <h3>{selectedDateString}</h3>
+      <div className="text-right">
+        <CloseButton itemToClose={addingWorkout} closeItem={setAddingWorkout} />
+      </div>
+      <h3 className="mb-6">{selectedDateString}</h3>
 
-      <div className="grid grid-cols-4">
-        <div className="col-start-1 col-end-2">Excercise Name:</div>
-        <div className="col-start-2"> Weight:</div>
-        <div className="col-start-3">Reps:</div>
-        <div className="col-start-4">+ / -</div>
+      <div className="grid grid-cols-4 mb-2">
+        <div className="col-start-1 col-end-2 font-semibold">
+          Excercise Name:
+        </div>
+        <div className="col-start-2 font-semibold"> Weight:</div>
+        <div className="col-start-3 font-semibold">Reps:</div>
+        <div className="col-start-4 font-semibold">+ / -</div>
       </div>
       {selectedDaysWorkouts !== undefined
         ? selectedDaysWorkouts.map((workout) => (
             <div key={workout._id} className="grid grid-cols-4">
-              <h2 className="">{workout.name}</h2>
+              <p className="">{workout.name}</p>
               <p className="">{workout.weight}</p>
               <p className="">{workout.reps}</p>
 
               {updatingWorkout && workout._id === itemToUpdate ? (
-                <div key={workout._id}>
+                <div
+                  key={workout._id}
+                  className="flex flex-col mb-2 justify-center items-center"
+                >
                   <input
                     type="text"
                     placeholder="Name"
+                    className="w-32"
                     onChange={(e) => setName(e.target.value)}
                   ></input>
                   <input
                     type="text"
                     placeholder="weight"
+                    className="w-32"
                     onChange={(e) => setWeight(e.target.value)}
                   ></input>
                   <input
                     type="text"
                     placeholder="reps"
+                    className="w-32"
                     onChange={(e) => setReps(e.target.value)}
                   ></input>
-                  <button onClick={(e) => updateWorkout(workout._id)}>
-                    Edit
-                  </button>
-                  <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
-                    Cancel
-                  </button>
+                  <div className="flex flex-row mt-2">
+                    <button
+                      onClick={(e) => updateWorkout(workout._id)}
+                      className={`btn-sm w-12 mr-2`}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={(e) => toggleUpdatingWorkout(workout._id)}
+                      className="btn-sm w-12 danger"
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </div>
               ) : null}
 
-              <div>
-                <button onClick={() => deleteWorkout(workout._id)}>
-                  <FontAwesomeIcon icon={faTrashCan} width={12} />
-                </button>
-                <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
-                  <FontAwesomeIcon icon={faPenToSquare} width={12} />
-                </button>
-              </div>
+              {updatingWorkout ? null : (
+                <div className="flex flex-row justify-around my-2">
+                  <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
+                    <FontAwesomeIcon
+                      icon={faPenToSquare}
+                      width={14}
+                      className={`text-blue-700`}
+                    />
+                  </button>
+                  <button onClick={() => deleteWorkout(workout._id)}>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      width={14}
+                      className="text-red-600"
+                    />
+                  </button>
+                </div>
+              )}
             </div>
           ))
         : null}
@@ -85,28 +116,31 @@ export default function workout({
         <input
           type="text"
           placeholder="Name"
-          className="border border-black mx-1"
+          className="border border-grey text-center mx-1"
           onChange={(e) => setName(e.target.value)}
+          value={name}
         ></input>
         <input
           type="text"
           placeholder="weight"
-          className="border border-black mx-1"
+          className="border border-grey text-center mx-1"
+          value={weight}
           onChange={(e) => setWeight(e.target.value)}
         ></input>
         <input
           type="text"
           placeholder="reps"
-          className="border border-black mx-1"
+          className="border border-grey text-center mx-1"
+          value={reps}
           onChange={(e) => setReps(e.target.value)}
         ></input>
         <button
           type="button"
           value="Add Workout"
-          className={`border border-black mx-1`}
+          className={`border border-grey mx-1 btn text-xs`}
           onClick={addWorkout}
         >
-          {"Add workout"}
+          {"+"}
         </button>
       </div>
     </div>

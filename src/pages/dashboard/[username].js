@@ -77,6 +77,10 @@ export default function Dashboard({ userDB }) {
   const addWorkout = async (e, date) => {
     e.preventDefault();
 
+    if (name === "" || reps === "" || weight === "") {
+      alert("Please fill out all fields");
+      return;
+    }
     axios
       .post("/api/addworkout", {
         name: name,
@@ -110,6 +114,10 @@ export default function Dashboard({ userDB }) {
 
   //update workout
   const updateWorkout = async (id) => {
+    if (name === "" || reps === "" || weight === "") {
+      alert("Please fill out all fields");
+      return;
+    }
     axios
       .put(`/api/updateworkout/${id}`, {
         name: name,
@@ -191,29 +199,46 @@ export default function Dashboard({ userDB }) {
 
   return (
     <div className="relative">
-      <h1>Dashboard</h1>
-
       <Calendar
         onChange={onChange}
         value={value}
         onClickDay={() => selectDate()}
         //add class if selected date has workouts
         tileClassName={({ date }) => addClassForWorkouts(date)}
+        className={``}
       />
+      <div className="legend-container flex flex-row p-6">
+        <div className="flex flex-row mr-2">
+          <div className="legend-box completed mr-2"></div>
+          <span> Workout Recorded </span>
+        </div>
+        <div className="flex flex-row mr-2">
+          <div className="legend-box incomplete mr-2"></div>
+          <span> No Workout Recorded </span>
+        </div>
+        <div className="flex flex-row mr-2">
+          <div className="legend-box today mr-2"></div>
+          <span> Today </span>
+        </div>
+      </div>
 
-      <div>
-        <div className={`flex justify-center`}>
-          <p
-            className={`${selectedDaysWorkouts.length === 0 ? null : "hide"}`}
-          >{`No workouts for this day just quite yet! Lets change that :)`}</p>
-          <p
-            className={`${selectedDaysWorkouts.length > 0 ? null : "hide"}`}
-          >{`Workouts for ${selectedDateString}`}</p>
+      <div className="mb-6">
+        <div className={`flex justify-center flex-col`}>
+          <div className="flex flex-col justify-center items-center mb-6">
+            <p
+              className={`${selectedDaysWorkouts.length === 0 ? null : "hide"}`}
+            >{`No workouts for this day just quite yet! Lets change that :)`}</p>
+            <p
+              className={`${selectedDaysWorkouts.length > 0 ? null : "hide"}`}
+            >{`Workouts for ${selectedDateString}`}</p>
+          </div>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn w-48 mx-auto"
             onClick={() => setAddingWorkout(true)}
           >
-            Add Workout
+            {selectedDaysWorkouts.length === 0
+              ? "Add Workout"
+              : "View Workouts"}
           </button>
         </div>
 
@@ -231,9 +256,16 @@ export default function Dashboard({ userDB }) {
           setAddingWorkout={setAddingWorkout}
           addingWorkout={addingWorkout}
           selectedDateString={selectedDateString}
+          weight={weight}
+          reps={reps}
+          name={name}
         />
       </div>
-
+      <div className="px-6 mb-6">
+        <div>
+          <p>{`Hello ${user.nickname}!`}</p>
+        </div>
+      </div>
       <PersonalRecords userWorkouts={userWorkouts} />
     </div>
   );

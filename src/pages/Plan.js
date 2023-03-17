@@ -25,7 +25,7 @@ export default function Plan() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(prompt);
-    // fetchData();
+    fetchData();
     setHasPlan(true);
     setCreatingPlan(false);
   }
@@ -81,7 +81,7 @@ export default function Plan() {
 
   return (
     <div>
-      <h1>Plan</h1>
+      <h1 className="text-center">{`Your Workout Plan`}</h1>
       {hasPlan ? (
         <div>
           <h2>Here is your workout plan!</h2>
@@ -90,13 +90,18 @@ export default function Plan() {
               <li key={i}>{workout}</li>
             ))}
           </ul>
-          <button>Save this plan</button>
-          <button> Uhh Give Me Another </button>
+          <button className="btn">Save this plan</button>
+          <button className="btn"> Uhh Give Me Another </button>
         </div>
       ) : (
-        <div>
-          <h2> We dont have a plan for you yet, so lets make one!</h2>
-          <button onClick={() => startPlan()}> Get Started </button>
+        <div className="text-center pb-24">
+          <h2 className="mb-6">
+            {" "}
+            We dont have a plan for you yet, so lets make one!
+          </h2>
+          <button className="btn w-42 px-6 mx-auto" onClick={() => startPlan()}>
+            {"Get Started"}
+          </button>
         </div>
       )}
 
@@ -104,68 +109,62 @@ export default function Plan() {
         <div className="planContainer">
           <h2>Lets figure out your fitness goals!</h2>
           <form onSubmit={handleSubmit}>
-            {currentStep === 0 ? (
-              <div className="stepOne step">
-                <div
-                  className="radio flex flex-col"
-                  onChange={(e) =>
-                    setPrompt({ ...prompt, goal: e.target.value })
-                  }
-                >
-                  <div className="flex flex-row justify-between">
-                    <label>I want to lose weight</label>
-                    <input
-                      type="radio"
-                      value="I want to lose weight"
-                      name="goal"
-                    />
-                  </div>
-                  <div className="flex flex-row justify-between">
-                    <label>I want to gain weight and muscle</label>
-                    <input
-                      type="radio"
-                      value="I want to gain weight and muscle"
-                      name="goal"
-                    />
-                  </div>
-                  <div className="flex flex-row justify-between">
-                    <label>I want to get stronger</label>
-                    <input
-                      type="radio"
-                      value="I want to get stronger"
-                      name="goal"
-                    />
-                  </div>
-                  <div className="flex flex-row justify-between">
-                    <label>I want to maintain and lean out</label>
-                    <input
-                      type="radio"
-                      value="I want to maintain and lean out"
-                      name="goal"
-                    />
-                  </div>
+            <div className={`${currentStep === 0 ? `active` : null} step`}>
+              <div
+                className="radio flex flex-col"
+                onChange={(e) => setPrompt({ ...prompt, goal: e.target.value })}
+              >
+                <div className="flex flex-row justify-between">
+                  <label>I want to lose weight</label>
+                  <input
+                    type="radio"
+                    value="I want to lose weight"
+                    name="goal"
+                  />
+                </div>
+                <div className="flex flex-row justify-between">
+                  <label>I want to gain weight and muscle</label>
+                  <input
+                    type="radio"
+                    value="I want to gain weight and muscle"
+                    name="goal"
+                  />
+                </div>
+                <div className="flex flex-row justify-between">
+                  <label>I want to get stronger</label>
+                  <input
+                    type="radio"
+                    value="I want to get stronger"
+                    name="goal"
+                  />
+                </div>
+                <div className="flex flex-row justify-between">
+                  <label>I want to maintain and lean out</label>
+                  <input
+                    type="radio"
+                    value="I want to maintain and lean out"
+                    name="goal"
+                  />
                 </div>
               </div>
-            ) : null}
+            </div>
 
-            {currentStep === 1 ? (
-              <div>
-                <label>Are you a pounds person or kilograms?</label>
-                <select
-                  name="units"
-                  onChange={(e) =>
-                    setPrompt({ ...prompt, units: e.target.value })
-                  }
-                >
-                  <option value="">Select</option>
-                  <option value="lbs">lbs</option>
-                  <option value="kg">kg</option>
-                </select>
-              </div>
-            ) : null}
+            <div className={`${currentStep === 1 ? `active` : null} step`}>
+              <label>Are you a pounds person or kilograms?</label>
+              <select
+                name="units"
+                onChange={(e) =>
+                  setPrompt({ ...prompt, units: e.target.value })
+                }
+              >
+                <option value="">Select</option>
+                <option value="lbs">lbs</option>
+                <option value="kg">kg</option>
+              </select>
+            </div>
 
             {currentStep === 2 ? (
-              <div className="stepTwo step">
+              <div className={`${currentStep === 2 ? `active` : null} step`}>
                 <div className="radio flex flex-col">
                   <div>
                     <label>What is your current weight</label>
@@ -185,7 +184,7 @@ export default function Plan() {
               </div>
             ) : null}
             {currentStep === 3 ? (
-              <div className="stepTwo step">
+              <div className={`${currentStep === 3 ? `active` : null} step`}>
                 <div className="radio flex flex-col">
                   <div>
                     <label>What is your target weight</label>
@@ -204,31 +203,30 @@ export default function Plan() {
                 </div>
               </div>
             ) : null}
-            {currentStep === 4 ? (
-              <div className="stepThree step">
-                <div className="radio flex flex-col">
-                  <div>
-                    <label> How many days a week can you workout?</label>
-                    <select
-                      onChange={(e) =>
-                        setPrompt({ ...prompt, daysPerWeek: e.target.value })
-                      }
-                    >
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                    </select>
-                  </div>
+
+            <div className={`${currentStep === 4 ? `active` : null} step`}>
+              <div className="radio flex flex-col">
+                <div>
+                  <label> How many days a week can you workout?</label>
+                  <select
+                    onChange={(e) =>
+                      setPrompt({ ...prompt, daysPerWeek: e.target.value })
+                    }
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                  </select>
                 </div>
               </div>
-            ) : null}
+            </div>
 
             {currentStep === 5 ? (
-              <div className="stepThree step">
+              <div className={`${currentStep === 5 ? `active` : null} step`}>
                 <div className="radio flex flex-col">
                   <div>
                     <label>
@@ -252,42 +250,42 @@ export default function Plan() {
             ) : null}
 
             {currentStep === 6 ? (
-              <div className="stepFour step">
-                lets review
+              <div className={`${currentStep === 6 ? `active` : null} step`}>
+                <h3 className="text-center">To Review...</h3>
                 <div className="flex flex-col content-center justify-center">
                   <div className="flex flex-col ">
                     <span className="flex flex-row justify-between">
-                      <label>Goal</label>
+                      <label className="font-bold">Goal:</label>
                       <span>{prompt.goal}</span>
                     </span>
 
                     <span className="flex flex-row justify-between">
-                      <label>Units</label>
+                      <label className="font-bold">Units:</label>
                       <span>{prompt.units}</span>
                     </span>
 
                     <span className="flex flex-row justify-between	">
-                      <label>Current Weight</label>
+                      <label className="font-bold">Current Weight:</label>
                       <span>{prompt.currentWeight}</span>
                     </span>
 
                     <span className="flex flex-row justify-between">
-                      <label>Target Weight</label>
+                      <label className="font-bold">Target Weight:</label>
                       <span>{prompt.targetWeight}</span>
                     </span>
 
                     <span className="flex flex-row justify-between">
-                      <label>Days Per Week</label>
+                      <label className="font-bold">Days Per Week:</label>
                       <span>{prompt.daysPerWeek}</span>
                     </span>
 
                     <span className="flex flex-row justify-between">
-                      <label>Time Per Session</label>
+                      <label className="font-bold">Time Per Session:</label>
                       <span>{prompt.timePerSession}</span>
                     </span>
                   </div>
                 </div>
-                <button>Submit</button>
+                <button className="btn w-36 mx-auto mt-6">Submit</button>
               </div>
             ) : null}
           </form>
