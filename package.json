@@ -31,7 +31,8 @@
     "openai": "^3.2.1",
     "react": "18.2.0",
     "react-calendar": "^4.0.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-spinners": "^0.13.8"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import CloseButton from "./CloseButton";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
+import { PulseLoader } from "react-spinners";
 
 export default function Chat() {
   const { user } = useUser();
@@ -21,6 +22,7 @@ export default function Chat() {
   const [aiMessageSent, setAiMessageSent] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
   const [textareaheight, setTextareaheight] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const chatBoxRef = useRef(null);
 
@@ -54,6 +56,7 @@ export default function Chat() {
   }, [aiMessageSent]);
 
   async function getAiResponse() {
+    setLoading(true);
     const response = await fetch("/api/aichat", {
       method: "POST",
       headers: {
@@ -66,6 +69,7 @@ export default function Chat() {
       .then((data) => data)
       .then((data) => {
         setchat([...chat, data.result]);
+        setLoading(false);
       })
 
       .catch((err) => console.log(err));
@@ -104,7 +108,12 @@ export default function Chat() {
         className="h-12 bg-blue-700 text-white p-4 flex flex-row justify-between items-center"
         onClick={() => toggleChat()}
       >
-        <h4>Chat</h4>
+        {loading ? (
+          <PulseLoader color="#fff" size={10} margin={2} />
+        ) : (
+          <h4>Chat</h4>
+        )}
+
         {chatOpen ? (
           <CloseButton closeItem={setChatOpen} />
         ) : (
@@ -129,7 +138,7 @@ export default function Chat() {
                       : `font-bold`
                   }`}
                 >
-                  {message.role === "user" ? user.nickname : message.role}
+                  {message.role === "user" ? user.nickname : "Vespur"}
                 </span>
                 : {message.content}
               </div>

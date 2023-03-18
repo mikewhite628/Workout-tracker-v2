@@ -3,11 +3,13 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Typewriter from "../Components/Typewriter";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { BeatLoader } from "react-spinners";
 
 export default function Workout({ userDB }) {
   const [aiResponse, setAiResponse] = useState(["-.o"]);
   const [prompt, setPrompt] = useState("");
   const [aiImage, setAiImage] = useState();
+  const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
     const response = await fetch("/api/ai", {
@@ -22,6 +24,7 @@ export default function Workout({ userDB }) {
     const data = await response.json();
     console.log(data);
     setAiResponse(data.result.split("\n"));
+    setLoading(false);
   };
 
   function handleChange(e) {
@@ -30,6 +33,7 @@ export default function Workout({ userDB }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setLoading(true);
     fetchData();
     console.log(prompt);
   }
@@ -77,7 +81,13 @@ export default function Workout({ userDB }) {
           {/* {aiResponse.map((workout, i) => (
               <li key={i}>{`${workout}`}</li>
             ))} */}
-          <Typewriter fullText={aiResponse.join(`\n`)} />
+          {loading ? (
+            <div className="flex justify-center items-center">
+              <BeatLoader size={50} color={"#ff8311"} loading={true} />
+            </div>
+          ) : (
+            <Typewriter fullText={aiResponse.join(`\n`)} />
+          )}
         </div>
       </div>
 

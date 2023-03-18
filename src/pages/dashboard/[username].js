@@ -6,6 +6,7 @@ import axios from "axios";
 import "react-calendar/dist/Calendar.css";
 import Workout from "../../Components/Workout";
 import PersonalRecords from "@/Components/PersonalRecords";
+import TransparentLayer from "@/Components/TransparentLayer";
 
 export default function Dashboard({ userDB }) {
   const [userWorkouts, setUserWorkouts] = useState([]);
@@ -199,6 +200,8 @@ export default function Dashboard({ userDB }) {
 
   return (
     <div className="relative">
+      <TransparentLayer addingWorkout={addingWorkout} />
+
       <Calendar
         onChange={onChange}
         value={value}

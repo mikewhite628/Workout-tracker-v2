@@ -7,6 +7,10 @@ body {
   overflow-x: hidden;
 }
 
+body.active-menu {
+  overflow: hidden !important;
+}
+
 h1 {
   font-size: 2.5rem;
   font-weight: 600;
@@ -95,7 +99,102 @@ h5 {
   min-height: 100vh;
 }
 
+nav {
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  z-index: 999;
+  height: 72px;
+  align-items: center;
+}
+
+/* .transparent-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+} */
+
 main {
+}
+
+.menu-line {
+  width: 30px;
+  height: 2px;
+  background-color: #1d4ed8;
+  margin: 5px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.top-bar {
+  transform: rotate(45deg) translate(3px, 4px);
+  transition: all 0.3s ease-in-out;
+}
+
+.middle-bar {
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.bottom-bar {
+  transform: rotate(-45deg) translate(5px, -8px);
+  transition: all 0.3s ease-in-out;
+}
+
+.mobile-menu {
+  margin-top: 52px;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 900;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 50vh;
+  background: #fff;
+  overflow: hidden;
+}
+
+.mobile-menu li {
+  list-style: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1d4ed8;
+  padding: 10px 0;
+  border-bottom: 1px solid #1d4ed8;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.mobile-menu li:hover {
+  background-color: #1d4ed8;
+}
+
+.mobile-menu li:hover a {
+  color: #fff;
+}
+
+.mobile-menu.inactive {
+  transition: all 0.5s ease-in-out;
+  height: 0;
+  opacity: 0;
+}
+
+.mobile-menu.active {
+  transition: all 0.5s ease-in-out;
+  height: 500px;
+  opacity: 1;
 }
 
 .banner-img {
@@ -118,7 +217,8 @@ main {
 
 .workoutmodal {
   height: 0;
-  width: 525px;
+  width: fit-content;
+  max-width: 525px;
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
@@ -171,7 +271,7 @@ main {
 .chat-inner::-webkit-scrollbar-track,
 .workoutmodal::-webkit-scrollbar-track,
 text-area::-webkit-scrollbar-track {
-  background-color: white;
+  background-color: transparent;
 }
 .chat-inner::-webkit-scrollbar,
 .workoutmodal::-webkit-scrollbar,

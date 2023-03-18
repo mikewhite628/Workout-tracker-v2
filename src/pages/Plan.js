@@ -4,6 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import Typewriter from "@/Components/Typewriter";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { PulseLoader } from "react-spinners";
 
 export default function Plan({ userDB }) {
   const [workoutPlan, setWorkoutPlan] = useState([]);
@@ -19,6 +20,7 @@ export default function Plan({ userDB }) {
   const [creatingPlan, setCreatingPlan] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [saveButtonPressed, setSaveButtonPressed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   console.log(userDB[0]._id);
 
@@ -36,6 +38,7 @@ export default function Plan({ userDB }) {
   }
 
   const fetchData = async () => {
+    setLoading(true);
     const response = await fetch("/api/workoutplan", {
       method: "POST",
       headers: {
@@ -48,6 +51,7 @@ export default function Plan({ userDB }) {
     const data = await response.json();
     console.log(data);
     setWorkoutPlan(data.result.split("\n"));
+    setLoading(false);
   };
 
   function nextStep() {
@@ -141,7 +145,11 @@ export default function Plan({ userDB }) {
           </ul> */}
           <div className="w-11/12 flex mx-auto m-2 p-2">
             <div className="AI-response w-full text-white p-8 text-lg">
-              <Typewriter fullText={workoutPlan.join("\n")} />
+              {loading ? (
+                <PulseLoader color="#fefea9" size={10} margin={2} />
+              ) : (
+                <Typewriter fullText={workoutPlan.join("\n")} />
+              )}
             </div>
           </div>
 

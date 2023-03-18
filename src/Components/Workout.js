@@ -26,7 +26,7 @@ export default function workout({
 
   return (
     <div
-      className={`flex flex-col absolute bg-slate-300 z-10  inset-0 mx-auto top-0 workoutmodal  text-center ${
+      className={`flex flex-col absolute bg-slate-300 z-50  inset-0 mx-auto top-0 workoutmodal  text-center ${
         addingWorkout ? "active " : null
       }`}
     >
