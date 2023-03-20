@@ -17,6 +17,7 @@
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "mongodb": "^3.7.3",
+    "netlify-cli": "^13.1.6",
     "next": "13.2.3",
     "next-auth": "^4.20.1",
     "openai": "^3.2.1",
