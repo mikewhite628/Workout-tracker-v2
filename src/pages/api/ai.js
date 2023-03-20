@@ -12,7 +12,7 @@ export default async function checkAi(req, res) {
     model: "text-davinci-003",
     prompt: prompt,
     temperature: 0.9,
-    max_tokens: 100,
+    max_tokens: 500,
     n: 5,
   });
 

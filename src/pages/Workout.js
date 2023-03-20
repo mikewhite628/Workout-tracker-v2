@@ -58,7 +58,7 @@ export default function Workout({ userDB }) {
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center mt-12">
         <Image
           src="/genesis.png"
           alt="genesis"

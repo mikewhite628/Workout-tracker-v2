@@ -46,7 +46,8 @@ export default function Layout({ children, pageProps }) {
       <div className="layout relative">
         <Nav />
         <div className="content">{children}</div>
-        <Chat />
+        {user ? <Chat /> : null}
+
         <Footer />
       </div>
     </DBContext.Provider>

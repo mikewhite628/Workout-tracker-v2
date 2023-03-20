@@ -25,7 +25,7 @@ export default function Nav() {
         <div className="text-blue-700">
           <Link href="/">Home</Link>
         </div>
-        <ul className="flex flex-row justify between max-md:hidden">
+        <ul className="flex flex-row justify between max-md:hidden text-lg">
           <li className="mr-5 ">
             {user ? (
               <Link
@@ -86,7 +86,7 @@ export default function Nav() {
           showMenu ? "active" : "inactive"
         }`}
       >
-        <li className="mr-5 ">
+        <li className="">
           {user ? (
             <Link
               href={`/dashboard/${user.nickname}`}
@@ -103,7 +103,7 @@ export default function Nav() {
             </Link>
           ) : null}
         </li>
-        <li className="mr-5">
+        <li className="">
           <Link
             href="/Workout"
             className={`${
@@ -118,7 +118,7 @@ export default function Nav() {
             Workouts
           </Link>
         </li>
-        <li className="mr-5">
+        <li className="">
           <Link
             href="/Plan"
             className={`${
@@ -134,11 +134,15 @@ export default function Nav() {
           </Link>
         </li>
 
-        <li className="mr-5">
+        <li className="text-black">
           {user ? (
-            <Link href="/api/auth/logout">Logout</Link>
+            <Link href="/api/auth/logout" className="text-black">
+              Logout
+            </Link>
           ) : (
-            <Link href="/api/auth/login">Login</Link>
+            <Link href="/api/auth/login" className="text-black">
+              Login
+            </Link>
           )}
         </li>
       </ul>

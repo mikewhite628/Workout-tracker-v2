@@ -127,7 +127,7 @@ export default function Plan({ userDB }) {
     console.log("generating new plan");
   }
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center mt-12">
       <Image
         src="/trinity.png"
         width={250}
@@ -135,6 +135,7 @@ export default function Plan({ userDB }) {
         alt="trinity"
         className="instructor-container mb-12"
       />
+      <h2>{`Yo I'm Trinity! Lets Get You A Little More Structured`} </h2>
       <h1 className="text-center">{`Your Workout Plan`}</h1>
       {hasPlan ? (
         <div className="flex flex-col w-full">

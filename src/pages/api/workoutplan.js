@@ -34,7 +34,7 @@ export default async function checkAi(req, res) {
       units
     ),
     temperature: 0.9,
-    max_tokens: 100,
+    max_tokens: 500,
     n: 5,
   });
 
@@ -49,6 +49,6 @@ function generatePrompt(
   timePerSession,
   units
 ) {
-  let prompt = `Generate a good workout plan if ${goal}. Current weight is ${currentWeight} ${units} and target weight is ${targetWeight} ${units}. I can workout ${daysPerWeek} days per week for ${timePerSession} minutes per session.`;
+  let prompt = `what would be a good workout plan if ${goal}. My current weight is ${currentWeight} ${units} and my target weight is ${targetWeight} ${units}. I can workout ${daysPerWeek} days per week for ${timePerSession} minutes per session. I cant afford a personal trainer and dont have access to other apps. I am intermidiate.`;
   return prompt;
 }
