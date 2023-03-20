@@ -1,13 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faYoutube,
-  faTwitter,
-  faGithub,
-} from "@fortawesome/free-brands-svg-icons";
-import { faHeart } from "@fortawesome/pro-solid-svg-icons";
-faHeart;
 
 export default function Footer() {
   return (
@@ -23,19 +15,13 @@ export default function Footer() {
       </div>
       <ul className="flex flex-row items-center">
         <li className="mr-2">
-          <Link href="/" className="icon text-red-600">
-            <FontAwesomeIcon icon={faYoutube} width="36px" />
-          </Link>
+          <i class="fa-brands fa-youtube"></i>
         </li>
         <li className="mr-2">
-          <Link href="/" className="icon text-blue-700">
-            <FontAwesomeIcon icon={faTwitter} width="36px" />
-          </Link>
+          <i class="fa-brands fa-twitter"></i>
         </li>
         <li className="mr-2">
-          <Link href="/">
-            <FontAwesomeIcon icon={faGithub} width="36px" />
-          </Link>
+          <i class="fa-brands fa-github"></i>
         </li>
       </ul>
     </div>

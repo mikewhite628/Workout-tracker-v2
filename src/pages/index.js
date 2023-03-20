@@ -4,8 +4,8 @@ import styles from "@/styles/Home.module.css";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import Banner from "@/Components/Banner";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDumbbell } from "@fortawesome/pro-regular-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faDumbbell } from "@fortawesome/pro-regular-svg-icons";
 
 export default function Home({ props }) {
   const { user, error, isLoading } = useUser();
@@ -35,9 +35,9 @@ export default function Home({ props }) {
             <h5>View and Track your Personal Fitness Records at A Glance</h5>
           </div>
           <div className="flex flex-row justify-around w-96 mb-12">
-            <FontAwesomeIcon icon={faDumbbell} width="75px" />
+            {/* <FontAwesomeIcon icon={faDumbbell} width="75px" />
             <FontAwesomeIcon icon={faDumbbell} width="100px" />
-            <FontAwesomeIcon icon={faDumbbell} width="75px" />
+            <FontAwesomeIcon icon={faDumbbell} width="75px" /> */}
           </div>
           <div className="instructor-container">
             <div>

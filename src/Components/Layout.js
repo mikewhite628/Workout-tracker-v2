@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import React from "react";
 import Chat from "./Chat";
-import Head from "next/head";
+import Script from "next/script";
 
 export const DBContext = React.createContext();
 
@@ -43,6 +43,11 @@ export default function Layout({ children, pageProps }) {
 
   return (
     <DBContext.Provider value={dbUser}>
+      <Script
+        src="https://kit.fontawesome.com/9bb19f9d25.js"
+        strategy="lazyOnload"
+        crossOrigin="anonymous"
+      ></Script>
       <div className="layout relative">
         <Nav />
         <div className="content">{children}</div>

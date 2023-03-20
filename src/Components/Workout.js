@@ -1,8 +1,8 @@
 import React from "react";
 import CloseButton from "./CloseButton";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/pro-solid-svg-icons";
-import { faPenToSquare } from "@fortawesome/pro-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faTrashCan } from "@fortawesome/pro-solid-svg-icons";
+// import { faPenToSquare } from "@fortawesome/pro-solid-svg-icons";
 
 export default function workout({
   selectedDaysWorkouts,
@@ -93,18 +93,18 @@ export default function workout({
               {updatingWorkout ? null : (
                 <div className="flex flex-row justify-around my-2">
                   <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       icon={faPenToSquare}
                       width={14}
                       className={`text-blue-700`}
-                    />
+                    /> */}
                   </button>
                   <button onClick={() => deleteWorkout(workout._id)}>
-                    <FontAwesomeIcon
+                    {/* <FontAwesomeIcon
                       icon={faTrashCan}
                       width={14}
                       className="text-red-600"
-                    />
+                    /> */}
                   </button>
                 </div>
               )}
