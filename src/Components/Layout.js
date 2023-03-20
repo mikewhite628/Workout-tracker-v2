@@ -9,7 +9,7 @@ import Script from "next/script";
 
 export const DBContext = React.createContext();
 
-export default function Layout({ children, pageProps }) {
+export default function Layout({ children }) {
   const { user, error, isLoading } = useUser();
   //check is user is loggin in and in the database, if not add them
   const [dbUser, setDbUser] = useState();

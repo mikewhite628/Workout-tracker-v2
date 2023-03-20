@@ -4,8 +4,6 @@ import styles from "@/styles/Home.module.css";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import Banner from "@/Components/Banner";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faDumbbell } from "@fortawesome/pro-regular-svg-icons";
 
 export default function Home({ props }) {
   const { user, error, isLoading } = useUser();
@@ -35,9 +33,9 @@ export default function Home({ props }) {
             <h5>View and Track your Personal Fitness Records at A Glance</h5>
           </div>
           <div className="flex flex-row justify-around w-96 mb-12">
-            {/* <FontAwesomeIcon icon={faDumbbell} width="75px" />
-            <FontAwesomeIcon icon={faDumbbell} width="100px" />
-            <FontAwesomeIcon icon={faDumbbell} width="75px" /> */}
+            <i class="fas fa-dumbbell fa-3x fa-heartbeat"></i>
+            <i class="fas fa-dumbbell fa-4x"></i>
+            <i class="fas fa-dumbbell fa-3x"></i>
           </div>
           <div className="instructor-container">
             <div>
@@ -58,22 +56,6 @@ export default function Home({ props }) {
               <h4>{`-.o`}</h4>
             </div>
           </div>
-          {/* {user ? (
-            <div>
-              <h1 className="text-3xl font-bold underline">Homepage</h1>
-              <h2 className="text-2xl font-bold underline">
-                Welcome {user.name}
-              </h2>
-
-              <Link href="/api/auth/logout">Logout</Link>
-            </div>
-          ) : (
-            <div>
-              <h1 className="text-3xl font-bold underline">Homepage</h1>
-              <h2 className="text-2xl font-bold underline">Welcome Guest</h2>
-              <Link href="/api/auth/login">Login</Link>
-            </div>
-          )} */}
         </div>
       </main>
     </>

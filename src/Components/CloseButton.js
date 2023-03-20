@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CloseButton({ itemToClose, closeItem }) {
+export default function CloseButton({ closeItem }) {
   const handleClick = () => {
     closeItem(false);
   };

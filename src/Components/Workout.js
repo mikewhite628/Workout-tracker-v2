@@ -1,8 +1,5 @@
 import React from "react";
 import CloseButton from "./CloseButton";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faTrashCan } from "@fortawesome/pro-solid-svg-icons";
-// import { faPenToSquare } from "@fortawesome/pro-solid-svg-icons";
 
 export default function workout({
   selectedDaysWorkouts,
