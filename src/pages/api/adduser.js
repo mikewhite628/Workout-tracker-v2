@@ -5,12 +5,12 @@ export default async function adduser(req, res) {
   try {
     const name = req.body.name;
     const email = req.body.email;
-    const sid = req.body.sub;
+    const sub = req.body.sub;
 
     const newUser = {
       name: name,
       email: email,
-      sid: sid,
+      sub: sub,
       workouts: [],
     };
     const client = await clientPromise;
@@ -19,6 +19,6 @@ export default async function adduser(req, res) {
     res.send("new user added" + user);
   } catch (e) {
     console.error(e);
-    res.send("error", e);
+    res.send("error");
   }
 }

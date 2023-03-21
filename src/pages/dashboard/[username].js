@@ -60,9 +60,9 @@ export default function Dashboard({ userDB }) {
 
   const fetchData = async () => {
     const result = await axios
-      .get(`/api/userinfo/${userDB._id}`)
+      .get(`/api/userinfo/${userDB[0]._id}`)
       .then((res) => {
-        return res.data;
+        return res.data[0];
       });
     setUserWorkouts(result.workouts);
     setFetched(true);
@@ -87,7 +87,7 @@ export default function Dashboard({ userDB }) {
         name: name,
         reps: reps,
         weight: weight,
-        user: userDB._id,
+        user: userDB[0]._id,
         date: selectedDate.toString(),
       })
       .then((res) => {
@@ -124,7 +124,7 @@ export default function Dashboard({ userDB }) {
         name: name,
         reps: reps,
         weight: weight,
-        user: userDB._id,
+        user: userDB[0]._id,
       })
       .then((res) => {
         console.log(res.data);
@@ -250,7 +250,7 @@ export default function Dashboard({ userDB }) {
           updatingWorkout={updatingWorkout}
           itemToUpdate={itemToUpdate}
           toggleUpdatingWorkout={toggleUpdatingWorkout}
-          deleteWorkout={deleteWorkout}
+          deleteWorkout={deleteWorkot}
           updateWorkout={updateWorkout}
           addWorkout={addWorkout}
           setName={setName}
@@ -277,13 +277,14 @@ export const getServerSideProps = withPageAuthRequired({
     const { req, res } = ctx;
     const session = await getSession(req, res);
     const user = session.user;
-    const sid = user.sid;
+    const sub = user.sub;
 
-    const fetchDBUser = await fetch(`/api/getuser/${sid}`, {
-      method: "GET",
+    const fetchDBUser = await fetch("/api/getuser", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ sub }),
     })
       .then((res) => res.json())
       .catch((err) => console.log(err));
