@@ -11,6 +11,8 @@ export default function Workout({ userDB }) {
   const [aiImage, setAiImage] = useState();
   const [loading, setLoading] = useState(false);
 
+  console.log(userDB + "userDB");
+
   const fetchData = async () => {
     const response = await fetch("/api/ai", {
       method: "POST",
@@ -119,7 +121,6 @@ export const getServerSideProps = withPageAuthRequired({
     const session = await getSession(req, res);
     const user = session.user;
     const sub = user.sub;
-
     const fetchDBUser = await fetch("/api/getuser", {
       method: "POST",
       headers: {
