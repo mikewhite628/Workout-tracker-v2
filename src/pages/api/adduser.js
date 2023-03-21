@@ -15,8 +15,10 @@ export default async function adduser(req, res) {
     };
     const client = await clientPromise;
     const db = client.db("test");
-    const user = await db.collection("users").save(newUser);
-    res.send("new user added" + user);
+    //add new user to db
+    const user = await db.collection("users").insertOne(newUser);
+    res.send(user);
+    console.log("user added");
   } catch (e) {
     console.error(e);
     res.send("error");
