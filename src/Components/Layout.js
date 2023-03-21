@@ -9,7 +9,7 @@ import Head from "next/head";
 
 export const DBContext = React.createContext();
 
-export default function Layout({ children, pageProps }) {
+export default function Layout({ children }) {
   const { user, error, isLoading } = useUser();
   //check is user is loggin in and in the database, if not add them
   const [dbUser, setDbUser] = useState();
@@ -39,10 +39,17 @@ export default function Layout({ children, pageProps }) {
       fetchUser();
       console.log(dbUser);
     }
-  }, [isLoading]);
+  }, [user]);
 
   return (
     <DBContext.Provider value={dbUser}>
+      <Head>
+        <script
+          src="https://kit.fontawesome.com/9bb19f9d25.js"
+          crossorigin="anonymous"
+          async
+        ></script>
+      </Head>
       <div className="layout relative">
         <Nav />
         <div className="content">{children}</div>

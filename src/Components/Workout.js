@@ -96,7 +96,10 @@ export default function workout({
                       className={`text-blue-700`}
                     /> */}
                   </button>
+
+                  <i className="fas fa-pen-square"></i>
                   <button onClick={() => deleteWorkout(workout._id)}>
+                    <i className="fas fa-trash-alt"></i>
                     {/* <FontAwesomeIcon
                       icon={faTrashCan}
                       width={14}
