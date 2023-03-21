@@ -392,14 +392,13 @@ export const getServerSideProps = withPageAuthRequired({
     const { req, res } = ctx;
     const session = await getSession(req, res);
     const user = session.user;
-    const sub = user.sub;
+    const sid = user.sid;
 
-    const fetchDBUser = await fetch("/api/getuser", {
-      method: "POST",
+    const fetchDBUser = await fetch(`/api/getuser/${sid}`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ sub }),
     })
       .then((res) => res.json())
       .catch((err) => console.log(err));

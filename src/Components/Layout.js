@@ -16,7 +16,7 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     if (user) {
-      let sub = user.sub;
+      let sid = user.sid;
       let name = user.name;
       let email = user.email;
       let picture = user.picture;
@@ -31,7 +31,7 @@ export default function Layout({ children }) {
             name: name,
             email: email,
             picture: picture,
-            sub: user.sub,
+            sid: user.sid,
           });
           console.log(addResult);
         }

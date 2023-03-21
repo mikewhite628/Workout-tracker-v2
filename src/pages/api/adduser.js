@@ -5,12 +5,12 @@ export default async function adduser(req, res) {
   try {
     const name = req.body.name;
     const email = req.body.email;
-    const sub = req.body.sub;
+    const sid = req.body.sub;
 
     const newUser = {
       name: name,
       email: email,
-      sub: sub,
+      sid: sid,
       workouts: [],
     };
     const client = await clientPromise;

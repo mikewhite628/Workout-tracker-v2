@@ -1,12 +1,13 @@
-import clientPromise from "../../../lib/mongodb";
+import clientPromise from "../../../../lib/mongodb";
 import { ObjectId } from "mongodb";
 
 export default async function getUser(req, res) {
+  const { uid } = req.query;
+
   try {
-    const auth0ID = req.body.sid;
     const client = await clientPromise;
     const db = client.db("test");
-    const user = await db.collection("users").find({ sid: auth0ID }).toArray();
+    const user = await db.collection("users").find({ sid: uid }).toArray();
     console.log(req.body);
     res.json(user);
   } catch (e) {
