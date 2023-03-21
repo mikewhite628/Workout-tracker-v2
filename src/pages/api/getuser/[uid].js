@@ -2,17 +2,10 @@ import clientPromise from "../../../../lib/mongodb";
 import { ObjectId } from "mongodb";
 
 export default async function getUser(req, res) {
-  const { email } = req.query;
+  const client = await clientPromise;
+  const db = await client.db();
 
-  try {
-    const client = await clientPromise;
-    const db = client.db("test");
-    const user = await db.collection("users").find({ email: email }).toArray();
-    console.log(req.body);
+  const user = await db.collection("users").findOne({ email: email });
 
-    res.send(200, user, email);
-  } catch (e) {
-    console.error(e);
-    res.send("error");
-  }
+  res.status(200).json(user);
 }
