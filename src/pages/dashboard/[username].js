@@ -9,6 +9,8 @@ import PersonalRecords from "@/Components/PersonalRecords";
 import TransparentLayer from "@/Components/TransparentLayer";
 
 export default function Dashboard({ userDB }) {
+  console.log(userDB + " userDB");
+
   const [userWorkouts, setUserWorkouts] = useState([]);
   const [value, onChange] = useState(new Date());
   const [fetched, setFetched] = useState(false);
