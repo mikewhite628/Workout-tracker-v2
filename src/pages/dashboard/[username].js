@@ -9,8 +9,6 @@ import PersonalRecords from "@/Components/PersonalRecords";
 import TransparentLayer from "@/Components/TransparentLayer";
 
 export default function Dashboard({ userDB }) {
-  console.log(userDB + " userDB");
-
   const [userWorkouts, setUserWorkouts] = useState([]);
   const [value, onChange] = useState(new Date());
   const [fetched, setFetched] = useState(false);
@@ -62,9 +60,9 @@ export default function Dashboard({ userDB }) {
 
   const fetchData = async () => {
     const result = await axios
-      .get(`/api/userinfo/${userDB._id}`)
+      .get(`/api/userinfo/${userDB[0]._id}`)
       .then((res) => {
-        return res.data;
+        return res.data[0];
       });
     setUserWorkouts(result.workouts);
     setFetched(true);
@@ -126,7 +124,7 @@ export default function Dashboard({ userDB }) {
         name: name,
         reps: reps,
         weight: weight,
-        user: userDB._id,
+        user: userDB[0]._id,
       })
       .then((res) => {
         console.log(res.data);
@@ -279,17 +277,12 @@ export const getServerSideProps = withPageAuthRequired({
     const { req, res } = ctx;
     const session = await getSession(req, res);
     const user = session.user;
-    const sub = user.sub;
 
-    const fetchDBUser = await fetch("/api/getuser", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ sub }),
-    })
-      .then((res) => res.json())
-      .catch((err) => console.log(err));
+    const email = user.email;
+
+    const fetchDBUser = await fetch(`/api/getuser/${email}`).then((res) =>
+      res.json()
+    );
 
     let db = await fetchDBUser;
 
