@@ -87,7 +87,7 @@ export default function Dashboard({ userDB }) {
         name: name,
         reps: reps,
         weight: weight,
-        user: userDB._id,
+        user: userDB[0]._id,
         date: selectedDate.toString(),
       })
       .then((res) => {
