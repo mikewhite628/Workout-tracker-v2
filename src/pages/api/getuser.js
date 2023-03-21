@@ -8,7 +8,7 @@ export default async function getUser(req, res) {
     const db = client.db("test");
     const user = await db.collection("users").find({ sub: auth0ID }).toArray();
     console.log(req.body);
-    res.json(auth0ID);
+    res.json(user);
   } catch (e) {
     console.error(e);
     res.send("error");
