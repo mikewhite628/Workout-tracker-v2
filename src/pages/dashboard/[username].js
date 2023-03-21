@@ -291,11 +291,9 @@ export const getServerSideProps = withPageAuthRequired({
         return data;
       });
 
-    let db = await fetchDBUser;
-
     return {
       props: {
-        userDB: db,
+        userDB: fetchDBUser,
       },
     };
   },
