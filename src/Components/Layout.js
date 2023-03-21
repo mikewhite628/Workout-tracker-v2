@@ -36,10 +36,10 @@ export default function Layout({ children }) {
           console.log(addResult);
         }
         setDbUser(result.data);
-        //set user in session storage
-        sessionStorage.setItem("user", JSON.stringify(result.data));
       };
       fetchUser();
+      //set user in session storage
+      sessionStorage.setItem("user", JSON.stringify(user));
       console.log(dbUser);
     }
   }, [isLoading]);
