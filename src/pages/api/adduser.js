@@ -19,6 +19,6 @@ export default async function adduser(req, res) {
     res.send("new user added" + user);
   } catch (e) {
     console.error(e);
-    res.send("error");
+    res.send("error", e);
   }
 }
