@@ -20,6 +20,7 @@ export default function Layout({ children }) {
       let name = user.name;
       let email = user.email;
       let picture = user.picture;
+      //set user in session storage
 
       let fetchUser = async () => {
         const result = await axios.post(`/api/getuser`, {
@@ -35,6 +36,8 @@ export default function Layout({ children }) {
           console.log(addResult);
         }
         setDbUser(result.data);
+        //set user in session storage
+        sessionStorage.setItem("user", JSON.stringify(result.data));
       };
       fetchUser();
       console.log(dbUser);
