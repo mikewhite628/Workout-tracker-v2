@@ -26,20 +26,19 @@ export default function Layout({ children }) {
           sub,
         });
         if (result.data.length === 0) {
-          const addResult = await axios.post(`/api/adduser`, {
+          axios.post(`/api/adduser`, {
             name: name,
             email: email,
             picture: picture,
             sub: user.sub,
           });
-          console.log(addResult);
         }
         setDbUser(result.data);
       };
       fetchUser();
       console.log(dbUser);
     }
-  }, [user]);
+  }, [user, isLoading]);
 
   return (
     <DBContext.Provider value={dbUser}>
