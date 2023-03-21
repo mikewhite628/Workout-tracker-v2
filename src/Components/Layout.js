@@ -44,11 +44,7 @@ export default function Layout({ children }) {
   return (
     <DBContext.Provider value={dbUser}>
       <Head>
-        <script
-          src="https://kit.fontawesome.com/9bb19f9d25.js"
-          crossorigin="anonymous"
-          async
-        ></script>
+        <script src="https://kit.fontawesome.com/9bb19f9d25.js" async></script>
       </Head>
       <div className="layout relative">
         <Nav />

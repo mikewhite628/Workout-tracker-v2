@@ -105,6 +105,8 @@ export default function workout({
                       width={14}
                       className="text-red-600"
                     /> */}
+
+                    {/* <i class="fa-solid fa-xmark"></i> */}
                   </button>
                 </div>
               )}
