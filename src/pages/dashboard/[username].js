@@ -287,7 +287,9 @@ export const getServerSideProps = withPageAuthRequired({
       body: JSON.stringify({ sub }),
     })
       .then((res) => res.json())
-      .catch((err) => console.log(err));
+      .then((data) => {
+        return data;
+      });
 
     let db = await fetchDBUser;
 
