@@ -10,7 +10,7 @@ export default async function getUser(req, res) {
     const user = await db.collection("users").find({ email: email }).toArray();
     console.log(req.body);
 
-    res.send(200, user);
+    res.send(200, user, email);
   } catch (e) {
     console.error(e);
     res.send("error");
