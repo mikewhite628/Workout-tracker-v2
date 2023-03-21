@@ -60,9 +60,9 @@ export default function Dashboard({ userDB }) {
 
   const fetchData = async () => {
     const result = await axios
-      .get(`/api/userinfo/${userDB[0]._id}`)
+      .get(`/api/userinfo/${userDB._id}`)
       .then((res) => {
-        return res.data[0];
+        return res.data;
       });
     setUserWorkouts(result.workouts);
     setFetched(true);
@@ -87,7 +87,7 @@ export default function Dashboard({ userDB }) {
         name: name,
         reps: reps,
         weight: weight,
-        user: userDB[0]._id,
+        user: userDB._id,
         date: selectedDate.toString(),
       })
       .then((res) => {
@@ -124,7 +124,7 @@ export default function Dashboard({ userDB }) {
         name: name,
         reps: reps,
         weight: weight,
-        user: userDB[0]._id,
+        user: userDB._id,
       })
       .then((res) => {
         console.log(res.data);
