@@ -39,7 +39,7 @@ export default function Layout({ children }) {
       };
       fetchUser();
       //set user in session storage
-      sessionStorage.setItem("user", JSON.stringify(dbUser));
+      sessionStorage.setItem("user", JSON.stringify(user));
       console.log(dbUser);
     }
   }, [isLoading]);
