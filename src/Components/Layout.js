@@ -23,7 +23,7 @@ export default function Layout({ children }) {
       //set user in session storage
 
       let fetchUser = async () => {
-        const result = await axios(`/api/getuser/${sid}`);
+        const result = await axios.get(`/api/getuser/${sid}`);
 
         if (result.data.length === 0) {
           const addResult = await axios.post(`/api/adduser`, {
