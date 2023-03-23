@@ -1,5 +1,6 @@
 import React from "react";
 import CloseButton from "./CloseButton";
+import Image from "next/image";
 
 export default function workout({
   selectedDaysWorkouts,
@@ -90,23 +91,23 @@ export default function workout({
               {updatingWorkout ? null : (
                 <div className="flex flex-row justify-around my-2">
                   <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
-                    {/* <FontAwesomeIcon
-                      icon={faPenToSquare}
-                      width={14}
-                      className={`text-blue-700`}
-                    /> */}
+                    <Image
+                      src="/pencil.svg"
+                      alt="pencil"
+                      width={20}
+                      height={20}
+                    />
                   </button>
 
                   <i className="fas fa-pen-square"></i>
                   <button onClick={() => deleteWorkout(workout._id)}>
                     <i className="fas fa-trash-alt"></i>
-                    {/* <FontAwesomeIcon
-                      icon={faTrashCan}
-                      width={14}
-                      className="text-red-600"
-                    /> */}
-
-                    {/* <i class="fa-solid fa-xmark"></i> */}
+                    <Image
+                      src="/trash.svg"
+                      alt="trash"
+                      width={20}
+                      height={20}
+                    />
                   </button>
                 </div>
               )}
