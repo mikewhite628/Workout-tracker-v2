@@ -280,7 +280,7 @@ export const getServerSideProps = withPageAuthRequired({
     const sub = user.sub;
 
     const fetchDBUser = await fetch("/api/getuser", {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
