@@ -41,7 +41,7 @@ export default function Dashboard({ userDB }) {
 
   useEffect(() => {
     // setUserWorkouts(userSession);
-    if (user) {
+    if (userDB) {
       fetchData();
     }
   }, [fetched]);

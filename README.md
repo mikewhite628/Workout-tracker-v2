@@ -1,38 +1,34 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# AI Fitness Trainer
 
-## Getting Started
+The AI fitness trainer allows you to:
 
-First, run the development server:
+- track your workouts
+- chat with an online ai personal trainer 24/7,
+- get detailed information about how to do certian workouts
+- get a personalized workout plan just for you
+- view personal records at a glance
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## What Powers AI Fitness Trainer?
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+AI fitness trainer is powered by [ChatGpt-3.5](https://openai.com/blog/chatgpt) and built with next js.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## What Problem Does AI Fitness Trainer Solve?
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Not everyone has the money for, or access to, a personal trainer. AI Fitness Trainer brings the
+benefits of having a personal trainer, without the associated cost or awkward human interaction.
+With AI fitness trainer the user is able to create a new starting point and grow from their while
+tracking their results and progress.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## How To Use AI Fitness Trainer
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+The use most of the functionality of the app the user must be logged in.
 
-## Learn More
+The **Chat** Feature uses the chat feature of chat-gpts API. The previous conversation in the chat is
+always referenced when making a new query.
 
-To learn more about Next.js, take a look at the following resources:
+The **Dashbaord** Page is used to store your workout data and view personal records.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The **Workouts** Page is used to get more detailed info on how to do certian workouts.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The **Workout Plan** Page is used to generated a workout plan for the user depending on their selections made in
+the on screen prompt.
