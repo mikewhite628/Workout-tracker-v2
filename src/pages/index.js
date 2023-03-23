@@ -33,9 +33,9 @@ export default function Home({ props }) {
             <h5>View and Track your Personal Fitness Records at A Glance</h5>
           </div>
           <div className="flex flex-row justify-around w-96 mb-12">
-            <i class="fas fa-dumbbell fa-3x fa-heartbeat"></i>
-            <i class="fas fa-dumbbell fa-4x"></i>
-            <i class="fas fa-dumbbell fa-3x"></i>
+            <Image src="/dumbell.svg" alt="dumbell" width={100} height={100} />
+            <Image src="/dumbell.svg" alt="dumbell" width={100} height={100} />
+            <Image src="/dumbell.svg" alt="dumbell" width={100} height={100} />
           </div>
           <div className="instructor-container">
             <div>

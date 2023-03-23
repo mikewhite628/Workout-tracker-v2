@@ -39,6 +39,8 @@ export default function Dashboard({ userDB }) {
 
   const { user, error, isLoading } = useUser();
 
+  console.log(userDB + "userDB");
+
   useEffect(() => {
     // setUserWorkouts(userSession);
     if (user) {

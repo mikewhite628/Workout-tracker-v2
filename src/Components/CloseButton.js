@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 export default function CloseButton({ closeItem }) {
@@ -7,7 +8,7 @@ export default function CloseButton({ closeItem }) {
 
   return (
     <button onClick={(e) => handleClick(e)} aria-label="close-button">
-      <i class="fa-solid fa-xmark"></i>
+      <Image src="/close.svg" width={20} height={20} alt={`close button`} />
     </button>
   );
 }
