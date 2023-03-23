@@ -89,7 +89,7 @@ export default function workout({
               ) : null}
 
               {updatingWorkout ? null : (
-                <div className="flex flex-row justify-around my-2">
+                <div className="flex flex-row justify-around mb-2">
                   <button onClick={(e) => toggleUpdatingWorkout(workout._id)}>
                     <Image
                       src="/pencil.svg"
@@ -107,6 +107,7 @@ export default function workout({
                       alt="trash"
                       width={20}
                       height={20}
+                      className="red"
                     />
                   </button>
                 </div>

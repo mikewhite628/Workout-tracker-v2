@@ -122,7 +122,7 @@ export default function Chat() {
             width={40}
             height={40}
             alt="vespur"
-            className="instructor-container"
+            className="instructor-container white"
           />
         )}
       </div>
