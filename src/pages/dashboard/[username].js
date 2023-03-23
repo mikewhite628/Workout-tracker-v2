@@ -8,7 +8,7 @@ import Workout from "../../Components/Workout";
 import PersonalRecords from "@/Components/PersonalRecords";
 import TransparentLayer from "@/Components/TransparentLayer";
 
-export default function Dashboard({ userDB }) {
+export default function Dashboard({ userDB, dbUser }) {
   const [userWorkouts, setUserWorkouts] = useState([]);
   const [value, onChange] = useState(new Date());
   const [fetched, setFetched] = useState(false);
@@ -40,6 +40,7 @@ export default function Dashboard({ userDB }) {
   const { user, error, isLoading } = useUser();
 
   console.log(userDB + "userDB");
+  console.log(dbUser + "dbUser");
 
   useEffect(() => {
     // setUserWorkouts(userSession);
