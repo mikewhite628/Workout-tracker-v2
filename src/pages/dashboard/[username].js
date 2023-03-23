@@ -282,7 +282,7 @@ export const getServerSideProps = withPageAuthRequired({
     const fetchDBUser = await fetch(
       "https://www.aifitnesstrainer.io/api/getuser",
       {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
