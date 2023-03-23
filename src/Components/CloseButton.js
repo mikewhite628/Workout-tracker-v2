@@ -8,7 +8,7 @@ export default function CloseButton({ closeItem }) {
 
   return (
     <button onClick={(e) => handleClick(e)} aria-label="close-button">
-      <Image src="/close.svg" width={20} height={20} alt={`close button`} />
+      <Image src="/x.svg" width={20} height={20} alt={`close button`} />
     </button>
   );
 }

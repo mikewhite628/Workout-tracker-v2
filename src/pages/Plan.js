@@ -111,8 +111,9 @@ export default function Plan({ userDB }) {
       setWorkoutPlan(plan);
       setHasPlan(true);
       setSaveButtonPressed(true);
+    } else {
+      console.log("checked for plan in db, found nothing");
     }
-    console.log("checked for plan in db, found nothing");
   }
 
   useEffect(() => {

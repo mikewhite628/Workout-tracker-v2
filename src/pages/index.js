@@ -33,14 +33,12 @@ export default function Home({ props }) {
             <h5>View and Track your Personal Fitness Records at A Glance</h5>
           </div>
           <div className="flex flex-row justify-around w-96 mb-12">
-            <Image src="/dumbell.svg" alt="dumbell" width={100} height={100} />
-            <Image src="/dumbell.svg" alt="dumbell" width={100} height={100} />
-            <Image src="/dumbell.svg" alt="dumbell" width={100} height={100} />
+            <Image src="/dumbell.svg" alt="dumbell" width={50} height={50} />
+            <Image src="/dumbell.svg" alt="dumbell" width={75} height={75} />
+            <Image src="/dumbell.svg" alt="dumbell" width={50} height={50} />
           </div>
           <div className="instructor-container">
-            <div>
-              <Image src="/aigreet.png" alt="mascot" width={250} height={250} />
-            </div>
+            <Image src="/aigreet.png" alt="mascot" width={250} height={250} />
           </div>
           <div className="mt-6">
             <div>
