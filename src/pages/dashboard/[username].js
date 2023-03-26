@@ -39,9 +39,6 @@ export default function Dashboard({ userDB, dbUser }) {
 
   const { user, error, isLoading } = useUser();
 
-  console.log(userDB + "userDB");
-  console.log(dbUser + "dbUser");
-
   useEffect(() => {
     // setUserWorkouts(userSession);
     if (user) {
@@ -53,10 +50,9 @@ export default function Dashboard({ userDB, dbUser }) {
     let userSession = sessionStorage.getItem("workouts");
     if (userSession === null) {
       fetchData();
-      console.log("fetching data");
     } else {
       //if user session is not null, set user workouts to session data
-      console.log("setting data from session");
+
       setUserWorkouts(JSON.parse(userSession));
     }
   }, [user]);
@@ -94,7 +90,6 @@ export default function Dashboard({ userDB, dbUser }) {
         date: selectedDate.toString(),
       })
       .then((res) => {
-        console.log(res.data);
         setFetched(false);
         clearData();
       })
@@ -108,7 +103,6 @@ export default function Dashboard({ userDB, dbUser }) {
     axios
       .delete(`/api/deleteworkout/${id}`)
       .then((res) => {
-        console.log(res.data);
         setFetched(false);
       })
       .catch((err) => {
@@ -130,7 +124,6 @@ export default function Dashboard({ userDB, dbUser }) {
         user: userDB[0]._id,
       })
       .then((res) => {
-        console.log(res.data);
         setFetched(false);
         toggleUpdatingWorkout();
         clearData();
@@ -144,7 +137,6 @@ export default function Dashboard({ userDB, dbUser }) {
   const toggleUpdatingWorkout = (id) => {
     setUpdatingWorkout(!updatingWorkout);
     setItemToUpdate(id);
-    console.log(itemToUpdate);
   };
 
   //select calendar date and view workouts on that date
@@ -162,8 +154,6 @@ export default function Dashboard({ userDB, dbUser }) {
     );
     setSelectedDaysWorkouts(selectedDateWorkouts);
     checkDayForWorkouts(selectedDateWorkouts);
-    console.log(value);
-    console.log(selectedDaysWorkouts);
   };
 
   const checkDayForWorkouts = (selectedDateWorkouts) => {

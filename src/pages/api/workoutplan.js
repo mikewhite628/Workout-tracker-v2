@@ -16,13 +16,6 @@ export default async function checkAi(req, res) {
     units,
   } = req.body;
 
-  //   const goal = "I want to lose weight";
-  //   const currentWeight = 200;
-  //   const targetWeight = 150;
-  //   const daysPerWeek = 5;
-  //   const timePerSession = 30;
-  //   const units = "lbs";
-
   const completion = await openai.createCompletion({
     model: "text-davinci-003",
     prompt: generatePrompt(

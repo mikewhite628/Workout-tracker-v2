@@ -16,8 +16,6 @@ export default async function addworkout(req, res) {
       date: date,
     };
 
-    //sanitze data
-
     const client = await clientPromise;
     const db = client.db("test");
 

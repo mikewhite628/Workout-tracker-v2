@@ -15,7 +15,6 @@ export default function PersonalRecords({ userWorkouts, user }) {
       return acc;
     }, {});
     setPersonalRecords(personalRecords);
-    console.log(personalRecords);
   };
 
   useEffect(() => {

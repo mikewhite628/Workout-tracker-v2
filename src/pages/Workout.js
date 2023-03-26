@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Typewriter from "../Components/Typewriter";
 import { getSession, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { BeatLoader } from "react-spinners";
@@ -8,10 +8,7 @@ import { BeatLoader } from "react-spinners";
 export default function Workout({ userDB }) {
   const [aiResponse, setAiResponse] = useState(["-.o"]);
   const [prompt, setPrompt] = useState("");
-  const [aiImage, setAiImage] = useState();
   const [loading, setLoading] = useState(false);
-
-  console.log(userDB + "userDB");
 
   const fetchData = async () => {
     const response = await fetch("/api/ai", {
@@ -24,7 +21,6 @@ export default function Workout({ userDB }) {
       }),
     });
     const data = await response.json();
-    console.log(data);
     setAiResponse(data.result.split("\n"));
     setLoading(false);
   };
@@ -37,7 +33,6 @@ export default function Workout({ userDB }) {
     e.preventDefault();
     setLoading(true);
     fetchData();
-    console.log(prompt);
   }
 
   // useEffect(() => {

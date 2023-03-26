@@ -22,8 +22,6 @@ export default function Plan({ userDB }) {
   const [saveButtonPressed, setSaveButtonPressed] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log(userDB[0]._id);
-
   function startPlan() {
     setCreatingPlan(true);
   }
@@ -96,12 +94,11 @@ export default function Plan({ userDB }) {
         plan: workoutPlan,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log("saved plan to db");
   }
 
   //load plan from db from user by id
@@ -125,7 +122,6 @@ export default function Plan({ userDB }) {
     setCreatingPlan(true);
     setCurrentStep(0);
     setSaveButtonPressed(false);
-    console.log("generating new plan");
   }
   return (
     <div className="flex flex-col justify-center items-center mt-12">

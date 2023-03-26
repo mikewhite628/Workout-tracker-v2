@@ -32,12 +32,10 @@ export default function Layout({ children }) {
             picture: picture,
             sub: user.sub,
           });
-          console.log(addResult);
         }
         setDbUser(result.data);
       };
       fetchUser();
-      console.log(dbUser);
     }
   }, [isLoading, user]);
 

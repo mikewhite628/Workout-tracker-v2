@@ -13,7 +13,6 @@ export default function Nav() {
   const toggleMenu = () => {
     setShowMenu(!showMenu);
     document.body.classList.toggle("active-menu");
-    console.log("toggling menu");
   };
 
   return (
