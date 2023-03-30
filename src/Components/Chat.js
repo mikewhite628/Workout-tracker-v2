@@ -115,14 +115,14 @@ export default function Chat() {
         )}
 
         {chatOpen ? (
-          <CloseButton closeItem={setChatOpen} />
+          <CloseButton closeItem={setChatOpen} color="white" />
         ) : (
           <Image
             src="/aigreet.png"
             width={40}
             height={40}
             alt="vespur"
-            className="instructor-container white"
+            className="instructor-container"
           />
         )}
       </div>

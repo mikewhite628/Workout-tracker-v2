@@ -24,7 +24,4 @@ export default async function checkAi(req, res) {
   });
 
   res.status(200).json({ result: completion.data.choices[0].message });
-
-  //   let replay = { role: "assistant", content: "yes we in here" };
-  //   res.status(200).json({ result: replay });
 }
